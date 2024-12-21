@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBKD@HOME</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .stdinput {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            word-break: break-all;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PBKD@HOME</h1>
+        <textarea id="message" placeholder="type your input..."></textarea>
+        <input id="iterations" type="number" class="stdinput" value="1" min="1"/>
+        <select id="algo" class="stdinput" >
+            <option value="pbkdf2-sha256">PBKDF2-SHA256</option>
+            <option value="sha256">SHA256</option>
+        </select>
+        <button id="encode">Encode</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('encode').addEventListener('click', async () => {
+            const text = document.getElementById('message').value;
+            const iterations = document.getElementById('iterations').value;
+            const algo = document.getElementById('algo').value;
+
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                const response = await fetch(`/api/encode/${algo}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text, iterations })
+                });
+                
+                const data = await response.json();
+                resultDiv.textContent = data.hash;
+                resultDiv.style.display = 'block';
+            } catch (error) {
+                resultDiv.textContent = 'Error: ' + error.message;
+                resultDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

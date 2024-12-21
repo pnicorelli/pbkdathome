@@ -1,0 +1,10 @@
+services:
+  pbkdathome:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./static:/app/static
+    environment:
+      SALT: random_string_modify_as_you_want
+    restart: unless-stopped
