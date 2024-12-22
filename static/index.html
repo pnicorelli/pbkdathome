@@ -6,7 +6,7 @@
     <title>PBKD@HOME</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: system-ui;
             max-width: 800px;
             margin: 20px auto;
             padding: 0 20px;
@@ -17,16 +17,22 @@
             gap: 20px;
         }
         textarea {
-            width: 100%;
+            width: 96%;
             height: 150px;
-            padding: 10px;
+            padding: 2%;
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: vertical;
         }
         .stdinput {
+            width: 98%;
+            padding: 1%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .stdselect {
             width: 100%;
-            padding: 10px;
+            padding: 1%;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -42,6 +48,15 @@
         button:hover {
             background-color: #45a049;
         }
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }        
         #result {
             word-break: break-all;
             padding: 10px;
@@ -49,19 +64,30 @@
             border-radius: 4px;
             display: none;
         }
+        .lbl{
+            font-size: .8em;
+            padding: 5px;
+            color: lightslategrey;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>PBKD@HOME</h1>
         <textarea id="message" placeholder="type your input..."></textarea>
-        <input id="iterations" type="number" class="stdinput" value="1" min="1"/>
-        <select id="algo" class="stdinput" >
-            <option value="pbkdf2-sha256">PBKDF2-SHA256</option>
-            <option value="sha256">SHA256</option>
-        </select>
+        <div>
+            <label for="iterations" class="lbl">iterations</label>
+            <input id="iterations" type="number" class="stdinput" value="1" min="1" />
+        </div>
+        <div>
+            <label for="algo" class="lbl">algo</label>        
+            <select id="algo" class="stdselect" >
+                <option value="pbkdf2-sha256">PBKDF2-SHA256</option>
+                <option value="sha256">SHA256</option>
+            </select>
+        </div>
         <button id="encode">Encode</button>
-        <div id="result"></div>
+        <div id="result">&nbsp;</div>
     </div>
 
     <script>
@@ -72,6 +98,9 @@
 
             const resultDiv = document.getElementById('result');
             
+            resultDiv.classList.add("blink")
+            resultDiv.textContent = "thinking";
+            resultDiv.style.display = 'block';
             try {
                 const response = await fetch(`/api/encode/${algo}`, {
                     method: 'POST',
@@ -83,11 +112,10 @@
                 
                 const data = await response.json();
                 resultDiv.textContent = data.hash;
-                resultDiv.style.display = 'block';
             } catch (error) {
                 resultDiv.textContent = 'Error: ' + error.message;
-                resultDiv.style.display = 'block';
             }
+            resultDiv.classList.remove("blink")
         });
     </script>
 </body>

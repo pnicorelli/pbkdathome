@@ -1,4 +1,4 @@
-# PBKDATHOME
+# PBKD@HOME
 
 A KISS, self-hosted tool for Password-Based Key Derivation built with Flask and vanilla JavaScript.
 

@@ -22,7 +22,6 @@ def encode_sha256():
     iterations = int(data['iterations'])
 
     for i in range(iterations):
-        print(i)
         hash_hex = hashlib.sha256(hash_hex.encode('utf-8'))
         hash_hex = hash_hex.hexdigest()
     
@@ -36,7 +35,7 @@ def encode_pbkdf2_sha256():
     
     text = data['text']
     iterations = int(data['iterations'])
-    salt = os.environ['SALT'].encode('utf-8')
+    salt = os.environ.get('SALT', 'salt_missing').encode('utf-8') 
     hash_object = hashlib.pbkdf2_hmac('sha256', text.encode('utf-8'), salt, iterations)
     hash_hex = hash_object.hex()
     
