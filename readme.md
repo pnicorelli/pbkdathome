@@ -20,7 +20,7 @@ This tool provides a simple, transparent, and self-hosted alternative that you c
 - Host locally (data never leaves your network)
 - Modify to suit your needs
 - Run offline
-- Trust (you can verify the SHA256 implementation)
+- Trust (you can verify the implementation)
 
 ## Features
 
@@ -30,7 +30,7 @@ This tool provides a simple, transparent, and self-hosted alternative that you c
 - Docker-based deployment
 - Source code is easy to audit
 - Supports any text input
-- Encode PBKDF256 and SHA256
+- Encode PBKDF256, SHA256, BIP39, BIP44
 - Instant encoding
 
 ## Setup
@@ -60,7 +60,11 @@ http://localhost:5000
 ├── requirements.txt
 ├── app.py
 └── static/
-    └── index.html
+    └── index.html   <-- main HTML
+    └── styles.css
+    └── script.js
+    └── partials/
+        └── **.html  <-- html for encoders
 ```
 
 ## Security Considerations

@@ -1,0 +1,19 @@
+
+<h1>BIP44</h1>
+<div>
+    <textarea name="text" id="text" placeholder="type your input..." class="stdtextarea"></textarea>
+</div>
+<div>
+    <select name="coin" id="coin">
+        <option value="ETHEREUM">ETH</option>
+        <option value="BITCOIN">BTC</option>
+        <option value="STELLAR">XML - STELLAR</option>
+        <option value="SOLANA">SOL - SOLANA</option>
+    </select>
+</div>
+<div>
+    <label for="wallets" class="lbl">wallets</label>
+    <input id="wallets" name="wallets" type="number" class="stdinput" value="1" min="1" />
+</div>
+<button class="stdbutton" type="submit">ENCODE</button>
+<input type="hidden" name="algo" value="bip44">
