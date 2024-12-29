@@ -45,8 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
         htmlresult.textContent = "thinking";
         htmlresult.style.display = 'block';
         let result
+        const urlEndpoint = (formDataObject.urlEndpoint) ? formDataObject.urlEndpoint : 'encode'
         try {
-            const response = await fetch(`/api/encode/${formDataObject.algo}`, {
+            const response = await fetch(`/api/${urlEndpoint}/${formDataObject.algo}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

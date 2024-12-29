@@ -1,6 +1,6 @@
 # PBKD@HOME
 
-A KISS, self-hosted tool for Password-Based Key Derivation built with Flask and vanilla JavaScript.
+A KISS, self-hosted tool for Password-Based Key Derivation and Crypto utilities built with Flask and vanilla JavaScript.
 
 No dependencies, no tracking, no external services, easy to audit.
 
@@ -30,8 +30,8 @@ This tool provides a simple, transparent, and self-hosted alternative that you c
 - Docker-based deployment
 - Source code is easy to audit
 - Supports any text input
-- Encode PBKDF256, SHA256, BIP39, BIP44
 - Instant encoding
+- Encode PBKDF256, SHA256, BIP39, BIP44, BIP84, AES256
 
 ## Setup
 
@@ -49,22 +49,6 @@ docker compose up --build
 3. Access the tool at:
 ```
 http://localhost:5000
-```
-
-## Project Structure
-
-```
-.
-├── docker-compose.yml
-├── Dockerfile
-├── requirements.txt
-├── app.py
-└── static/
-    └── index.html   <-- main HTML
-    └── styles.css
-    └── script.js
-    └── partials/
-        └── **.html  <-- html for encoders
 ```
 
 ## Security Considerations
